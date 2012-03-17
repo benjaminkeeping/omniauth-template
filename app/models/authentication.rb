@@ -7,11 +7,10 @@ class Authentication < ActiveRecord::Base
     authentication = Authentication.new
 
     auth_name = get_auth_name(auth)
-
     authentication.provider = auth["provider"]
     authentication.uid = auth["uid"].to_s
     authentication.name = auth_name
-    authentication.email = auth["user_info"]["email"]
+    authentication.email = auth["info"]["email"]
     authentication.build_user(:name => auth_name, :email => authentication.email)
 
     authentication.save
@@ -28,11 +27,11 @@ class Authentication < ActiveRecord::Base
     authentication.provider = auth["provider"]
     authentication.uid = auth["uid"].to_s
     authentication.name = auth_name
-    authentication.email = auth["user_info"]["email"]
+    authentication.email = auth["info"]["email"]
     authentication.user = current_user
 
     if (current_user.email.blank? || current_user.name.blank?)
-      update_current_user(current_user, auth_name, auth["user_info"]["email"])
+      update_current_user(current_user, auth_name, auth["info"]["email"])
     end
 
     authentication.save
@@ -43,7 +42,8 @@ class Authentication < ActiveRecord::Base
   private
 
   def self.get_auth_name(auth)
-    auth_name = auth["user_info"]["name"]
+    auth_name = ""
+    auth_name = auth["info"]["name"] if auth["info"] != nil 
     if (auth_name.blank?)
       auth_name = auth["provider"] + ":" + auth["uid"]
     end

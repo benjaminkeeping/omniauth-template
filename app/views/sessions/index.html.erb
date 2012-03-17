@@ -29,13 +29,11 @@
 <% else %>
     <h2>Log in via one of the following</h2>
 <% end %>
-<% providers.each do |provider| %>
     <div class="provider">
+<% providers.each do |provider| %>
       <%= link_to image_tag("icons/#{provider.to_s}_32.png",
                             :alt => provider.to_s.capitalize,
                             :title => provider.to_s.capitalize),
                   "/auth/#{provider.to_s.downcase}" %>
-      <%= link_to provider.to_s.capitalize,
-                  "/auth/#{provider.to_s.downcase}" %>
-    </div>
 <% end %>
+    </div>

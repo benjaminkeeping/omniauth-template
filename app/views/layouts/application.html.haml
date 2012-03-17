@@ -1,0 +1,22 @@
+!!!
+%html
+%head
+	%title Ship some shizzle
+	= stylesheet_link_tag "bootstrap"
+%body
+	.topbar
+		.fill
+			.container
+				%a{:href => '#', :class => 'brand'} Project name
+				%ul{:class => 'nav'}
+					%li{:class => 'active'}
+						=link_to 'Home', home_index_path
+					%li
+						=link_to 'About', home_index_path
+					%li
+						%a{:href => '#'} Contact
+	.container
+		.hero-unit
+			=yield				
+		.row
+			.span-one-third

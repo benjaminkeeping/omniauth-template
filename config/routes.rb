@@ -3,5 +3,8 @@ Omniauth::Application.routes.draw do
   match "/logout" => "sessions#destroy", :as => "logout"
   match "/login" => "sessions#index", :as => "login"
   
-  root :to => 'some_controller#index'
+  root :to => 'home#index'
+
+  resources :home
+  resources :sessions
 end
